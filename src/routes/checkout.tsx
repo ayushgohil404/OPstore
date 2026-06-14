@@ -185,11 +185,11 @@ function CheckoutForm({ cartItems, subtotal, shipping, total }: any) {
           {step === 'shipping' && (
             <form onSubmit={(e) => { e.preventDefault(); setStep('payment') }} className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-4">
               <h2 className="text-xl font-bold">Shipping Address</h2>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input required value={formData.firstName} onChange={e => setFormData({...formData, firstName: e.target.value})} type="text" placeholder="First Name" className="col-span-1 bg-background border border-border rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary outline-none transition-all" />
                 <input required value={formData.lastName} onChange={e => setFormData({...formData, lastName: e.target.value})} type="text" placeholder="Last Name" className="col-span-1 bg-background border border-border rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary outline-none transition-all" />
-                <input required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} type="email" placeholder="Email Address" className="col-span-2 bg-background border border-border rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary outline-none transition-all" />
-                <input required value={formData.address} onChange={e => setFormData({...formData, address: e.target.value})} type="text" placeholder="Address" className="col-span-2 bg-background border border-border rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary outline-none transition-all" />
+                <input required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} type="email" placeholder="Email Address" className="col-span-1 md:col-span-2 bg-background border border-border rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary outline-none transition-all" />
+                <input required value={formData.address} onChange={e => setFormData({...formData, address: e.target.value})} type="text" placeholder="Address" className="col-span-1 md:col-span-2 bg-background border border-border rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary outline-none transition-all" />
                 <input required value={formData.city} onChange={e => setFormData({...formData, city: e.target.value})} type="text" placeholder="City" className="col-span-1 bg-background border border-border rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary outline-none transition-all" />
                 <input required value={formData.zipCode} onChange={e => setFormData({...formData, zipCode: e.target.value})} type="text" placeholder="ZIP Code" className="col-span-1 bg-background border border-border rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary outline-none transition-all" />
               </div>
