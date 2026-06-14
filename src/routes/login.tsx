@@ -14,6 +14,7 @@ function Login() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    window.alert("React click handler fired! The app is now trying to log you in...")
     setIsLoading(true)
     
     const formData = new FormData(e.target as HTMLFormElement)

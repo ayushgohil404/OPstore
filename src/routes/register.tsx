@@ -17,6 +17,7 @@ function Register() {
 
   const handleStep1Submit = async (e: React.FormEvent) => {
     e.preventDefault()
+    window.alert("React click handler fired! If you see this, React is working. The app is now trying to connect to the database and send the email...")
     setIsLoading(true)
     
     const formData = new FormData(e.target as HTMLFormElement)
