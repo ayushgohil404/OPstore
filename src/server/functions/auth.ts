@@ -50,7 +50,10 @@ export const register = createServerFn({ method: 'POST' })
         where: { id: existing.id },
         data: { verifyOtp: otp, verifyOtpExpiry: getOtpExpiry(), password: await bcrypt.hash(password, 10) }
       })
-      await sendOtpEmail({ data: { email, otp, type: 'verify' } })
+      const emailResult = await sendOtpEmail({ data: { email, otp, type: 'verify' } })
+      if (!emailResult.success) {
+        throw new Error(`Email could not be sent: ${emailResult.error}. Please check your EMAIL_USER and EMAIL_PASS (App Password) environment variables.`)
+      }
       return { requireOtp: true }
     }
       
@@ -70,7 +73,10 @@ export const register = createServerFn({ method: 'POST' })
       }
     })
     
-    await sendOtpEmail({ data: { email, otp, type: 'verify' } })
+    const emailResult = await sendOtpEmail({ data: { email, otp, type: 'verify' } })
+    if (!emailResult.success) {
+      throw new Error(`Email could not be sent: ${emailResult.error}. Please check your EMAIL_USER and EMAIL_PASS (App Password) environment variables.`)
+    }
     return { requireOtp: true }
   })
 
