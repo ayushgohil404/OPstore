@@ -128,7 +128,7 @@ function Register() {
             </>
           )}
           
-          <form method="POST" className="space-y-6" onSubmit={step === 1 ? handleStep1Submit : handleStep2Submit}>
+          <form method="POST" noValidate className="space-y-6" onSubmit={step === 1 ? handleStep1Submit : handleStep2Submit}>
             {step === 1 ? (
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
