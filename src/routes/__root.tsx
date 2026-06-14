@@ -61,7 +61,7 @@ function RootComponent() {
     return (
       <>
         <Outlet />
-        <Toaster theme="dark" position="bottom-right" />
+        <Toaster theme="dark" position="top-center" />
       </>
     )
   }
@@ -73,7 +73,7 @@ function RootComponent() {
         <Outlet />
       </main>
       <StoreFooter />
-      <Toaster theme="dark" position="bottom-right" />
+      <Toaster theme="dark" position="top-center" />
     </div>
   )
 }

@@ -33,7 +33,9 @@ function Register() {
         toast.success('Verification code sent to your email!')
       }
     } catch (error: any) {
-      toast.error(error.message || 'Failed to create account')
+      const msg = error.message || 'Failed to create account'
+      toast.error(msg)
+      window.alert(msg)
     } finally {
       setIsLoading(false)
     }

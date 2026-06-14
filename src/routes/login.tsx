@@ -25,7 +25,9 @@ function Login() {
       toast.success('Successfully logged in!')
       navigate({ to: '/account' })
     } catch (error: any) {
-      toast.error(error.message || 'Invalid email or password')
+      const msg = error.message || 'Failed to login'
+      toast.error(msg)
+      window.alert(msg)
     } finally {
       setIsLoading(false)
     }
