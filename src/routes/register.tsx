@@ -31,6 +31,9 @@ function Register() {
         setEmail(formEmail)
         setStep(2)
         toast.success('Verification code sent to your email!')
+      } else {
+        toast.success('Account created successfully!')
+        navigate({ to: '/account' })
       }
     } catch (error: any) {
       toast.error(error.message || 'Failed to create account')

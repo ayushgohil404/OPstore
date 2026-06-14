@@ -44,34 +44,47 @@ export const register = createServerFn({ method: 'POST' })
       if (existing.authProvider === 'GOOGLE') throw new Error('This email is already registered via Google.')
       if (existing.isVerified) throw new Error('Email already registered.')
       
-      // If unverified, just generate a new OTP and resend
-      const otp = generateOtp()
-      await prisma.user.update({
+      // If unverified, just verify them now and log them in
+      const updatedUser = await prisma.user.update({
         where: { id: existing.id },
-        data: { verifyOtp: otp, verifyOtpExpiry: getOtpExpiry(), password: await bcrypt.hash(password, 10) }
+        data: { isVerified: true, verifyOtp: null, verifyOtpExpiry: null, password: await bcrypt.hash(password, 10) }
       })
-      await sendOtpEmail({ data: { email, otp, type: 'verify' } })
-      return { requireOtp: true }
+      
+      const token = jwt.sign({ id: updatedUser.id, email: updatedUser.email, role: updatedUser.role }, JWT_SECRET, { expiresIn: '7d' })
+      setCookie('auth_token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        path: '/',
+        maxAge: 60 * 60 * 24 * 7
+      })
+      return { requireOtp: false, user: { id: updatedUser.id, email: updatedUser.email, firstName: updatedUser.name, lastName: '', role: updatedUser.role } }
     }
       
     const hashedPassword = await bcrypt.hash(password, 10)
     const name = `${firstName || ''} ${lastName || ''}`.trim() || 'New User'
-    const otp = generateOtp()
     
-    await prisma.user.create({
+    const newUser = await prisma.user.create({
       data: {
         email,
         password: hashedPassword,
         name,
         authProvider: 'EMAIL',
-        isVerified: false,
-        verifyOtp: otp,
-        verifyOtpExpiry: getOtpExpiry()
+        isVerified: true
       }
     })
     
-    await sendOtpEmail({ data: { email, otp, type: 'verify' } })
-    return { requireOtp: true }
+    const token = jwt.sign({ id: newUser.id, email: newUser.email, role: newUser.role }, JWT_SECRET, { expiresIn: '7d' })
+    setCookie('auth_token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      path: '/',
+      maxAge: 60 * 60 * 24 * 7
+    })
+    
+    // We send it asynchronously so it doesn't block the request
+    sendWelcomeEmail({ data: { email: newUser.email, firstName: name.split(' ')[0] } }).catch(console.error)
+    
+    return { requireOtp: false, user: { id: newUser.id, email: newUser.email, firstName: newUser.name, lastName: '', role: newUser.role } }
   })
 
 export const verifyRegistration = createServerFn({ method: 'POST' })
