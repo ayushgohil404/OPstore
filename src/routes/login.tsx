@@ -96,7 +96,7 @@ function Login() {
             </div>
           </div>
           
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form method="POST" className="space-y-6" onSubmit={handleSubmit}>
             <div className="space-y-4">
               <div className="relative group">
                 <input
