@@ -30,3 +30,6 @@ failed to load config from /Users/ayush/Downloads/OPStore/vite.config.ts
 [38;5;246m────╯[0m
 
 12:38:53 AM [vite] server restart failed
+12:42:22 AM [vite] vite.config.ts changed, restarting server...
+12:42:22 AM [vite] (client) Re-optimizing dependencies because vite config has changed
+12:42:23 AM [vite] server restarted.

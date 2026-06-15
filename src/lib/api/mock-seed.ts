@@ -1,4 +1,4 @@
-import type { Product, Category, Review } from './types'
+import type { Product, Category } from './types'
 
 export const mockCategories: Category[] = [
   { id: 'c1', name: 'Men', slug: 'men' },
@@ -69,7 +69,7 @@ export const mockProducts: Product[] = [
   }
 ]
 
-export const mockReviews: Review[] = [
+export const mockReviews: any[] = [
   {
     id: 'r1',
     productId: 'p1',
