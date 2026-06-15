@@ -5,7 +5,7 @@ import { Plus, Search, Filter, MoreHorizontal, Edit, Trash2 } from 'lucide-react
 
 export const Route = createFileRoute('/admin/products/')({
   loader: ({ context }) => {
-    context.queryClient.ensureQueryData({
+    return context.queryClient.ensureQueryData({
       queryKey: ['admin', 'products'],
       queryFn: () => productsApi.listProducts(),
     })

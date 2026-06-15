@@ -20,7 +20,7 @@ export const Route = createFileRoute('/c/$category')({
     }
   },
   loader: ({ context, params }) => {
-    context.queryClient.ensureQueryData({
+    return context.queryClient.ensureQueryData({
       queryKey: ['products', 'category', params.category],
       queryFn: () => productsApi.listProducts({ categoryId: params.category }),
     })

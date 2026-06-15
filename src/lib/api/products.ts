@@ -26,6 +26,7 @@ export const productsApi: ProductsAdapter = {
 
   getFeatured: async () => {
     const data = await getFeaturedFn()
+    if (data === undefined) throw new Error("Vercel returned undefined for getFeaturedFn")
     return data as unknown as Product[]
   },
 

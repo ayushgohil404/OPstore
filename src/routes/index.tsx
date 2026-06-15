@@ -16,7 +16,7 @@ export const Route = createFileRoute('/')({
     ]
   }),
   loader: ({ context }) => {
-    context.queryClient.ensureQueryData({
+    return context.queryClient.ensureQueryData({
       queryKey: ['products', 'featured'],
       queryFn: () => productsApi.getFeatured(),
     })
