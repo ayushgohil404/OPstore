@@ -1,9 +1,9 @@
 import { o as __toESM } from "../_runtime.mjs";
 import { i as getCookie, n as createServerFn, o as setCookie$1 } from "./ssr.mjs";
-import { t as require_jsonwebtoken } from "../_libs/jsonwebtoken+[...].mjs";
 import { t as createServerRpc } from "./createServerRpc-A6pJPYTF.mjs";
 import { t as prisma } from "./db-DdnRbRDq.mjs";
 import { n as sendOrderConfirmationEmail } from "./email-bA_03RXO.mjs";
+import { t as require_jsonwebtoken } from "../_libs/jsonwebtoken+[...].mjs";
 //#region node_modules/.nitro/vite/services/ssr/assets/checkout-ByjiJaVw.js
 var import_jsonwebtoken = /* @__PURE__ */ __toESM(require_jsonwebtoken());
 var JWT_SECRET = process.env.JWT_SECRET || "secret";

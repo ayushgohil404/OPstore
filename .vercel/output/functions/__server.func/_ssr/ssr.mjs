@@ -139,7 +139,7 @@ var HEADERS = { TSS_SHELL: "X-TSS_SHELL" };
 * the dev styles URL for route-scoped CSS collection.
 */
 async function getStartManifest(matchedRoutes) {
-	const { tsrStartManifest } = await import("../_tanstack-start-manifest_v-DpvE_faI.mjs");
+	const { tsrStartManifest } = await import("../_tanstack-start-manifest_v-BAJ2U5ZN.mjs");
 	const startManifest = tsrStartManifest();
 	let routes = startManifest.routes;
 	routes[rootRouteId];
@@ -161,15 +161,15 @@ async function getStartManifest(matchedRoutes) {
 var manifest = {
 	"04cab093470b32062d3dc577fbb85096ba73e976b4b9baf559bccf5d7ac33553": {
 		functionName: "getCurrentUser_createServerFn_handler",
-		importer: () => import("./auth-CGRJCZYA.mjs")
+		importer: () => import("./auth-DcksY_gs.mjs")
 	},
 	"08943e78fc82af5c8bd384db23b95ce9d296c098c050b9af42067d955d5e55f1": {
 		functionName: "listUserOrders_createServerFn_handler",
-		importer: () => import("./orders-DcW-7uiw.mjs")
+		importer: () => import("./orders-C1AGFKdM.mjs")
 	},
 	"18e9d61060d226a217bddd3ab9ed2d1f4cec66074ba70c7422c09a6ff0d6b49a": {
 		functionName: "listAllOrders_createServerFn_handler",
-		importer: () => import("./orders-DcW-7uiw.mjs")
+		importer: () => import("./orders-C1AGFKdM.mjs")
 	},
 	"230d5355cab9339b0ce9ae0f5f47932bd129ff270fdae1cdf90f0daa44abce2b": {
 		functionName: "addToCart_createServerFn_handler",
@@ -177,15 +177,15 @@ var manifest = {
 	},
 	"23497a46959a75a4f515d77e23057b56b49da2f801b46a447029952ad8ec843c": {
 		functionName: "getWishlist_createServerFn_handler",
-		importer: () => import("./wishlist-BbpVIrmH.mjs")
+		importer: () => import("./wishlist-30234f_Y.mjs")
 	},
 	"29fdd7534a8fc4cc73a2fc0e6a37abee71570be1256a0cd8b872f6c5140c326e": {
 		functionName: "logout_createServerFn_handler",
-		importer: () => import("./auth-CGRJCZYA.mjs")
+		importer: () => import("./auth-DcksY_gs.mjs")
 	},
 	"360236355a9861f95902e9eb0d307f2efee5a2f199cf39f88f087e433632b420": {
 		functionName: "toggleWishlist_createServerFn_handler",
-		importer: () => import("./wishlist-BbpVIrmH.mjs")
+		importer: () => import("./wishlist-30234f_Y.mjs")
 	},
 	"383937b9997449a1da06c1ebe902a072f653b117c82605c9e335c279614cbdb4": {
 		functionName: "removeFromCart_createServerFn_handler",
@@ -201,7 +201,7 @@ var manifest = {
 	},
 	"457662bb1a744021ed49b2bec554453c666e682396f4dfc1159d1753d5d37098": {
 		functionName: "updateProfile_createServerFn_handler",
-		importer: () => import("./settings-C6wgERHL.mjs")
+		importer: () => import("./settings-BmqNB4dx.mjs")
 	},
 	"4cfe41f1eacd96e3cd3712b0444b8417266a16107218f87b56139278d42443e6": {
 		functionName: "clearCart_createServerFn_handler",
@@ -209,7 +209,7 @@ var manifest = {
 	},
 	"55fa4b34afc759b8dbb5caeba482c36bac96e301899dccd9a952042c0affbb17": {
 		functionName: "getReviews_createServerFn_handler",
-		importer: () => import("./reviews-CBPFLkj_.mjs")
+		importer: () => import("./reviews-BWh4o2VE.mjs")
 	},
 	"59819dedcbdf25fc7a4d4a12d6684df8aa3cd8fc97d424e4f780637c172ccd14": {
 		functionName: "uploadImage_createServerFn_handler",
@@ -221,55 +221,55 @@ var manifest = {
 	},
 	"632bf91abf658b2254285f9bef0ccdfb006fbd68786b9dcc83d15846db6ef26c": {
 		functionName: "createReview_createServerFn_handler",
-		importer: () => import("./reviews-CBPFLkj_.mjs")
+		importer: () => import("./reviews-BWh4o2VE.mjs")
 	},
 	"6baab00c3c53ba591670028b68e38dbf591ae6338ec670d2e8bcea794780a3cd": {
 		functionName: "loginWithGoogle_createServerFn_handler",
-		importer: () => import("./auth-CGRJCZYA.mjs")
+		importer: () => import("./auth-DcksY_gs.mjs")
 	},
 	"6ce5f9c59223924ec6bd6e70934cf12ef3a09340cee18e458ad7d8b2a304bd79": {
 		functionName: "getStoreKPIs_createServerFn_handler",
-		importer: () => import("./orders-DcW-7uiw.mjs")
+		importer: () => import("./orders-C1AGFKdM.mjs")
 	},
 	"8ee5d321fad9ffed022ad5db7a3fd369840ab704fdd4d4cde7691b92cf2ebb3f": {
 		functionName: "updatePassword_createServerFn_handler",
-		importer: () => import("./settings-C6wgERHL.mjs")
+		importer: () => import("./settings-BmqNB4dx.mjs")
 	},
 	"90c0569f8b22ccf890bd2d7f48cf7357d79e9dc19f53a36f84a9d9e02c742da3": {
 		functionName: "register_createServerFn_handler",
-		importer: () => import("./auth-CGRJCZYA.mjs")
+		importer: () => import("./auth-DcksY_gs.mjs")
 	},
 	"919edf1d886c56f34b93fc9524b3f617b0e093436acf8fff22e929c9c924de00": {
 		functionName: "getLowStockProducts_createServerFn_handler",
-		importer: () => import("./products-BaUnhcRA.mjs")
+		importer: () => import("./products-C2lzJi2I.mjs")
 	},
 	"a328c510d0d8d7a6015cf5fcb79c1cdaad19756292c2df03215db93bb2ad65b8": {
 		functionName: "updateOrderStatus_createServerFn_handler",
-		importer: () => import("./orders-DcW-7uiw.mjs")
+		importer: () => import("./orders-C1AGFKdM.mjs")
 	},
 	"aaa2a9cc3c55fec31d1451469b9a330167ffdaaf22385c6ad7c88e40308b0e44": {
 		functionName: "listProducts_createServerFn_handler",
-		importer: () => import("./products-BaUnhcRA.mjs")
+		importer: () => import("./products-C2lzJi2I.mjs")
 	},
 	"b874f798e1ec2d45be11b04fffdaedeb1e0d12b4b6fdfe0265115583dc3432fa": {
 		functionName: "createProduct_createServerFn_handler",
-		importer: () => import("./products-BaUnhcRA.mjs")
+		importer: () => import("./products-C2lzJi2I.mjs")
 	},
 	"c09e6ff46493a0266a642fb117a49108485bd0d1f4b7f5b19a8e71d71e513615": {
 		functionName: "getProduct_createServerFn_handler",
-		importer: () => import("./products-BaUnhcRA.mjs")
+		importer: () => import("./products-C2lzJi2I.mjs")
 	},
 	"c66295356ee1bed9dcd6acc6996417714105d1c255d6dc117cb348c4624a9cfa": {
 		functionName: "login_createServerFn_handler",
-		importer: () => import("./auth-CGRJCZYA.mjs")
+		importer: () => import("./auth-DcksY_gs.mjs")
 	},
 	"d29a005c860c714dec6c5bd484b506e260c9de537d30c90f3c57ba86a74c4616": {
 		functionName: "verifyRegistration_createServerFn_handler",
-		importer: () => import("./auth-CGRJCZYA.mjs")
+		importer: () => import("./auth-DcksY_gs.mjs")
 	},
 	"d60d9929a45a03358828443d0c65048100e702d698952d29ef6b8e311f48fd6a": {
 		functionName: "resetPassword_createServerFn_handler",
-		importer: () => import("./auth-CGRJCZYA.mjs")
+		importer: () => import("./auth-DcksY_gs.mjs")
 	},
 	"de52c3641a85f28ff04d6d8ebfb5acdf4b3cbfcfbaec57d40234e469c604a296": {
 		functionName: "createPaymentIntent_createServerFn_handler",
@@ -281,7 +281,7 @@ var manifest = {
 	},
 	"e115dfa96332c62252ce32bd9e95e2485d456ec1fcfcfdebaf7cbb177eb94505": {
 		functionName: "forgotPasswordStep1_createServerFn_handler",
-		importer: () => import("./auth-CGRJCZYA.mjs")
+		importer: () => import("./auth-DcksY_gs.mjs")
 	},
 	"e186aef83854d2461595c56ee64d3d818c971ea4f51906aee2b27faf50689a4b": {
 		functionName: "subscribeNewsletter_createServerFn_handler",
@@ -289,15 +289,15 @@ var manifest = {
 	},
 	"e70b0a25bcfa6b3ff6264b88442e709990ed486a5773d88ff9d9850b3c49302c": {
 		functionName: "getGoogleAuthUrl_createServerFn_handler",
-		importer: () => import("./auth-CGRJCZYA.mjs")
+		importer: () => import("./auth-DcksY_gs.mjs")
 	},
 	"f09c5504b1f05324348dbb4d9d54e9049f02c3422c08d5946715344027eaf2d8": {
 		functionName: "listAllCustomers_createServerFn_handler",
-		importer: () => import("./customers-DW0JHpXg.mjs")
+		importer: () => import("./customers-BZZzqT4e.mjs")
 	},
 	"f557915d2fe13594f7504e8dfde05000f562e6c9201c1cb0955de8acf0eeabe9": {
 		functionName: "getFeatured_createServerFn_handler",
-		importer: () => import("./products-BaUnhcRA.mjs")
+		importer: () => import("./products-C2lzJi2I.mjs")
 	}
 };
 async function getServerFnById(id, access) {
@@ -1567,7 +1567,7 @@ var getBaseManifest = getProdBaseManifest;
 var createEarlyHintsForRequest = createEarlyHintsCollector;
 async function loadEntries() {
 	const [routerEntry, startEntry, pluginAdapters] = await Promise.all([
-		import("./router-CVTMzpjd.mjs"),
+		import("./router-ChUWlgGq.mjs"),
 		import("./start-5Z2QO8AU.mjs"),
 		import("./empty-plugin-adapters-D9UWiqvJ.mjs")
 	]);

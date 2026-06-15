@@ -2,12 +2,16 @@ import { getCookie } from '@tanstack/react-start/server'
 import jwt from 'jsonwebtoken'
 import { prisma } from '../db'
 
-const JWT_SECRET = process.env.JWT_SECRET
-if (!JWT_SECRET) throw new Error('JWT_SECRET environment variable is not set')
-
 export const getUserIdFromCookie = () => {
   const token = getCookie('auth_token')
   if (!token) return null
+  
+  const JWT_SECRET = process.env.JWT_SECRET
+  if (!JWT_SECRET) {
+    console.error('JWT_SECRET is not set')
+    return null
+  }
+
   try {
     const decoded: any = jwt.verify(token, JWT_SECRET)
     return decoded.id
@@ -19,6 +23,10 @@ export const getUserIdFromCookie = () => {
 export const requireAdmin = async () => {
   const token = getCookie('auth_token')
   if (!token) throw new Error('Unauthorized')
+  
+  const JWT_SECRET = process.env.JWT_SECRET
+  if (!JWT_SECRET) throw new Error('JWT_SECRET environment variable is not set')
+
   try {
     const decoded: any = jwt.verify(token, JWT_SECRET)
     const user = await prisma.user.findUnique({ where: { id: decoded.id } })

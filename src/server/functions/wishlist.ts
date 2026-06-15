@@ -1,10 +1,7 @@
 import { createServerFn } from '@tanstack/react-start'
 import { prisma } from '../db'
-import jwt from 'jsonwebtoken'
 import { mapProduct } from './products'
 
-const JWT_SECRET = process.env.JWT_SECRET
-if (!JWT_SECRET) throw new Error('JWT_SECRET environment variable is not set')
 
 import { getUserIdFromCookie } from './auth-utils'
 

@@ -18,8 +18,11 @@ const LoginSchema = z.object({
   password: z.string().min(1),
 })
 
-const JWT_SECRET = process.env.JWT_SECRET
-if (!JWT_SECRET) throw new Error('JWT_SECRET environment variable is not set')
+const getJwtSecret = () => {
+  const secret = process.env.JWT_SECRET
+  if (!secret) throw new Error('JWT_SECRET environment variable is not set')
+  return secret
+}
 
 const generateOtp = () => Math.floor(100000 + Math.random() * 900000).toString()
 const getOtpExpiry = () => new Date(Date.now() + 15 * 60 * 1000) // 15 mins
@@ -43,7 +46,7 @@ export const login = createServerFn({ method: 'POST' })
     const isValid = await bcrypt.compare(password, user.password)
     if (!isValid) throw new Error('Invalid email or password')
     
-    const token = jwt.sign({ id: user.id, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: '7d' })
+    const token = jwt.sign({ id: user.id, email: user.email, role: user.role }, getJwtSecret(), { expiresIn: '7d' })
     setCookie('auth_token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
@@ -122,7 +125,7 @@ export const verifyRegistration = createServerFn({ method: 'POST' })
       data: { isVerified: true, verifyOtp: null, verifyOtpExpiry: null }
     })
     
-    const token = jwt.sign({ id: updatedUser.id, email: updatedUser.email, role: updatedUser.role }, JWT_SECRET, { expiresIn: '7d' })
+    const token = jwt.sign({ id: updatedUser.id, email: updatedUser.email, role: updatedUser.role }, getJwtSecret(), { expiresIn: '7d' })
     setCookie('auth_token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
@@ -219,7 +222,7 @@ export const loginWithGoogle = createServerFn({ method: 'POST' })
       sendWelcomeEmail({ data: { email: user.email, firstName: name.split(' ')[0] } }).catch(console.error)
     }
     
-    const token = jwt.sign({ id: user.id, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: '7d' })
+    const token = jwt.sign({ id: user.id, email: user.email, role: user.role }, getJwtSecret(), { expiresIn: '7d' })
     setCookie('auth_token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
@@ -242,7 +245,7 @@ export const getCurrentUser = createServerFn({ method: 'GET' })
     if (!token) return null
     
     try {
-      const decoded: any = jwt.verify(token, JWT_SECRET)
+      const decoded: any = jwt.verify(token, getJwtSecret())
       const user = await prisma.user.findUnique({ where: { id: decoded.id } })
       if (!user) return null
       

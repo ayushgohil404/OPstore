@@ -7,10 +7,7 @@ const ReviewSchema = z.object({
   rating: z.number().int().min(1).max(5),
   comment: z.string().min(1).max(1000),
 })
-import jwt from 'jsonwebtoken'
 
-const JWT_SECRET = process.env.JWT_SECRET
-if (!JWT_SECRET) throw new Error('JWT_SECRET environment variable is not set')
 
 import { getUserIdFromCookie } from './auth-utils'
 
