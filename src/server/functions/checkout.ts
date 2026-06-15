@@ -54,7 +54,7 @@ export const processCheckout = createServerFn({ method: 'POST' })
       }
     })
 
-    const shipping = 15 // Flat rate shipping
+    const shipping = subtotal > 150 ? 0 : 15
     const totalAmount = subtotal + shipping
 
     // 3. Determine if user is logged in

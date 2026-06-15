@@ -4,8 +4,10 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { wishlistApi } from '../../lib/api/wishlist'
 import { cartApi } from '../../lib/api/inventory-cart'
 import { toast } from 'sonner'
+import { RouteLoading } from '../../components/RouteLoading'
 
 export const Route = createFileRoute('/account/wishlist')({
+  pendingComponent: RouteLoading,
   component: AccountWishlist,
 })
 
@@ -19,7 +21,7 @@ function AccountWishlist() {
 
   const removeMutation = useMutation({
     mutationFn: (productId: number) => wishlistApi.toggleWishlist(productId),
-    onSuccess: (_, productId) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['wishlist'] })
       toast.success('Removed from wishlist.')
     }
@@ -70,7 +72,7 @@ function AccountWishlist() {
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
           {wishlistItems.map((item) => (
             <div key={item.id} className="group flex flex-col gap-3 bg-secondary/10 border border-border p-4 rounded-2xl">
-              <Link to={`/p/${item.product.slug}`} className="relative aspect-[4/5] overflow-hidden rounded-xl bg-secondary block">
+              <Link to="/p/$slug" params={{ slug: item.product.slug }} className="relative aspect-[4/5] overflow-hidden rounded-xl bg-secondary block">
                 <img 
                   src={item.product.images[0]} 
                   alt={item.product.name}
@@ -78,7 +80,7 @@ function AccountWishlist() {
                 />
               </Link>
               <div className="flex flex-col gap-1 mt-2">
-                <Link to={`/p/${item.product.slug}`} className="font-semibold text-foreground hover:text-primary transition-colors truncate">
+                <Link to="/p/$slug" params={{ slug: item.product.slug }} className="font-semibold text-foreground hover:text-primary transition-colors truncate">
                   {item.product.name}
                 </Link>
                 <span className="text-primary font-bold">${item.product.price.toFixed(2)}</span>

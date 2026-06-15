@@ -3,7 +3,12 @@ import { productsApi } from '../lib/api'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { ArrowRight } from 'lucide-react'
 
+import { RouteError } from '../components/RouteError'
+import { RouteLoading } from '../components/RouteLoading'
+
 export const Route = createFileRoute('/')({
+  errorComponent: RouteError,
+  pendingComponent: RouteLoading,
   head: () => ({
     meta: [
       { title: 'OPStore | Premium Apparel For All' },
@@ -50,7 +55,7 @@ function Home() {
             Redefined fashion for Men, Women, and Kids. Experience the perfect blend of comfort and modern aesthetics.
           </p>
           <Link 
-            to="/c/men" 
+            to="/c/$category" params={{ category: 'men' }} 
             className="inline-flex items-center justify-center bg-primary text-primary-foreground px-8 py-4 rounded-full font-medium text-lg hover:bg-primary/90 transition-all hover:scale-105 active:scale-95"
           >
             Shop Collection <ArrowRight className="ml-2 w-5 h-5" />
@@ -63,17 +68,20 @@ function Home() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <CategoryCard 
             title="Men" 
-            to="/c/men" 
+            to="/c/$category"
+            params={{ category: 'men' }}
             image="https://images.unsplash.com/photo-1617137968427-85924c800a22?q=80&w=800&auto=format&fit=crop" 
           />
           <CategoryCard 
             title="Women" 
-            to="/c/women" 
+            to="/c/$category"
+            params={{ category: 'women' }}
             image="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800&auto=format&fit=crop" 
           />
           <CategoryCard 
             title="Kids" 
-            to="/c/kids" 
+            to="/c/$category"
+            params={{ category: 'kids' }}
             image="https://images.unsplash.com/photo-1519238396346-60866160e1d0?q=80&w=800&auto=format&fit=crop" 
           />
         </div>
@@ -88,7 +96,7 @@ function Home() {
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {featuredProducts.map(product => (
-            <Link key={product.id} to={`/p/${product.slug}`} className="group flex flex-col gap-3">
+            <Link key={product.id} to="/p/$slug" params={{ slug: product.slug }} className="group flex flex-col gap-3">
               <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-secondary">
                 <img 
                   src={product.images[0]} 
@@ -108,9 +116,9 @@ function Home() {
   )
 }
 
-function CategoryCard({ title, to, image }: { title: string, to: string, image: string }) {
+function CategoryCard({ title, to, params, image }: { title: string, to: string, params?: any, image: string }) {
   return (
-    <Link to={to} className="group relative h-[400px] overflow-hidden rounded-3xl bg-secondary block">
+    <Link to={to as any} params={params} className="group relative h-[400px] overflow-hidden rounded-3xl bg-secondary block">
       <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent z-10" />
       <img 
         src={image} 

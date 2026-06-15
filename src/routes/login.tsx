@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import { authApi } from '../lib/api'
-import { ArrowRight, Github, Mail } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
@@ -14,7 +14,6 @@ function Login() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    window.alert("React click handler fired! The app is now trying to log you in...")
     setIsLoading(true)
     
     const formData = new FormData(e.target as HTMLFormElement)
@@ -28,7 +27,6 @@ function Login() {
     } catch (error: any) {
       const msg = error.message || 'Failed to login'
       toast.error(msg)
-      window.alert(msg)
     } finally {
       setIsLoading(false)
     }

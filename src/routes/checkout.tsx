@@ -1,7 +1,7 @@
-import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { useState, useEffect } from 'react'
 import { ShieldCheck, CheckCircle2, Loader2, CreditCard } from 'lucide-react'
-import { useQuery, useMutation } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { cartApi } from '../lib/api/inventory-cart'
 import { stripeApi } from '../lib/api/stripe'
 import { processCheckout } from '../server/functions/checkout'
@@ -10,7 +10,10 @@ import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || '')
 
+import { RouteError } from '../components/RouteError'
+
 export const Route = createFileRoute('/checkout')({
+  errorComponent: RouteError,
   component: CheckoutWrapper,
 })
 
@@ -250,7 +253,7 @@ function CheckoutForm({ cartItems, subtotal, shipping, total }: any) {
           <h2 className="font-bold mb-4">In Your Cart</h2>
           <div className="flex flex-col gap-4 mb-6">
             {cartItems.map((item: any, idx: number) => {
-              const imgUrl = Array.isArray(item.product.images) ? item.product.images[0] : (typeof item.product.images === 'string' ? JSON.parse(item.product.images)[0] : '')
+              const imgUrl = Array.isArray(item.product.images) ? item.product.images[0] : ''
               return (
                 <div key={idx} className="flex gap-4 items-center">
                   <div className="w-16 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-background">

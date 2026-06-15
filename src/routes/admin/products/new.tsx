@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useState } from 'react'
-import { Upload, X, ArrowLeft, Loader2 } from 'lucide-react'
+import { Upload, ArrowLeft, Loader2 } from 'lucide-react'
 import { productsApi } from '../../../lib/api'
 import { uploadImage } from '../../../server/functions/upload'
 
@@ -121,10 +121,10 @@ function AddProduct() {
               <div className="flex flex-col gap-2">
                 <label className="text-sm font-medium">Category</label>
                 <select name="category" required className="w-full bg-secondary/50 border border-border rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:outline-none">
-                  <option value="apparel">Apparel</option>
-                  <option value="footwear">Footwear</option>
+                  <option value="men">Men</option>
+                  <option value="women">Women</option>
+                  <option value="kids">Kids</option>
                   <option value="accessories">Accessories</option>
-                  <option value="outerwear">Outerwear</option>
                 </select>
               </div>
             </div>

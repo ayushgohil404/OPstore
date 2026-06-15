@@ -1,8 +1,30 @@
 import { createServerFn } from '@tanstack/react-start'
 import { sendEmail } from '../../lib/email'
+import { z } from 'zod'
+
+const ContactSchema = z.object({
+  name: z.string().min(1),
+  email: z.string().email(),
+  subject: z.string().min(1),
+  message: z.string().min(10).max(2000),
+})
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;')
+}
 
 export const submitContactForm = createServerFn({ method: 'POST' })
-  .validator((data: { name: string; email: string; subject: string; message: string }) => data)
+  .validator((data: any) => {
+    try {
+      return ContactSchema.parse(data)
+    } catch {
+      return { error: 'Invalid input' } as any
+    }
+  })
   .handler(async ({ data }) => {
     // In a real application, you might save this to the database
     // For now, we will just send an email using our email utility
@@ -14,7 +36,7 @@ export const submitContactForm = createServerFn({ method: 'POST' })
           <h2>New message from ${data.name} (${data.email})</h2>
           <p><strong>Subject:</strong> ${data.subject}</p>
           <hr/>
-          <p>${data.message.replace(/\n/g, '<br/>')}</p>
+          <p>${escapeHtml(data.message).replace(/\n/g, '<br/>')}</p>
         `
       })
       return { success: true }

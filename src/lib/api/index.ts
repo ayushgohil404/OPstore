@@ -4,7 +4,7 @@ export * from './categories'
 export * from './auth'
 export * from './inventory-cart'
 export * from './orders'
-export * from './stubs'
+
 export * from './wishlist'
 export * from './reviews'
 export * from './stripe'

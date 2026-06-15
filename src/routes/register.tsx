@@ -1,6 +1,5 @@
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import { authApi } from '../lib/api'
-import { sendWelcomeEmail } from '../lib/email'
 import { ArrowRight } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'sonner'
@@ -17,7 +16,6 @@ function Register() {
 
   const handleStep1Submit = async (e: React.FormEvent) => {
     e.preventDefault()
-    window.alert("React click handler fired! If you see this, React is working. The app is now trying to connect to the database and send the email...")
     setIsLoading(true)
     
     const formData = new FormData(e.target as HTMLFormElement)
@@ -36,7 +34,6 @@ function Register() {
     } catch (error: any) {
       const msg = error.message || 'Failed to create account'
       toast.error(msg)
-      window.alert(msg)
     } finally {
       setIsLoading(false)
     }

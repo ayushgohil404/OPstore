@@ -6,6 +6,7 @@ export interface StripeAdapter {
 
 export const stripeApi: StripeAdapter = {
   createPaymentIntent: async (amount) => {
-    return await createPaymentIntentFn({ data: amount })
+    const res = await createPaymentIntentFn({ data: amount })
+    return { clientSecret: res.clientSecret || '' }
   }
 }

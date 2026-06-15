@@ -1,9 +1,14 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { Package, ChevronRight, Truck, CheckCircle2, Clock } from 'lucide-react'
+import { Package, Truck, CheckCircle2, Clock } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
 import { ordersApi } from '../../lib/api/orders'
 
+import { RouteError } from '../../components/RouteError'
+import { RouteLoading } from '../../components/RouteLoading'
+
 export const Route = createFileRoute('/account/orders')({
+  errorComponent: RouteError,
+  pendingComponent: RouteLoading,
   component: AccountOrders,
 })
 

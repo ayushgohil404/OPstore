@@ -58,10 +58,10 @@ export function StoreHeader() {
             </button>
           </div>
           <nav className="flex flex-col p-4 gap-4 text-lg font-medium">
-            <Link to="/c/men" onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-border/50">Men</Link>
-            <Link to="/c/women" onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-border/50">Women</Link>
-            <Link to="/c/kids" onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-border/50">Kids</Link>
-            <Link to="/c/accessories" onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-border/50">Accessories</Link>
+            <Link to="/c/$category" params={{ category: 'men' }} onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-border/50">Men</Link>
+            <Link to="/c/$category" params={{ category: 'women' }} onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-border/50">Women</Link>
+            <Link to="/c/$category" params={{ category: 'kids' }} onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-border/50">Kids</Link>
+            <Link to="/c/$category" params={{ category: 'accessories' }} onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-border/50">Accessories</Link>
             <Link to="/journal" onClick={() => setIsMobileMenuOpen(false)} className="py-2 border-b border-border/50">Journal</Link>
           </nav>
         </div>

@@ -196,7 +196,7 @@ function SearchPage() {
             ) : products && products.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
                 {products.map(product => (
-                  <Link key={product.id} to={`/p/${product.slug}`} className="group flex flex-col gap-3">
+                  <Link key={product.id} to="/p/$slug" params={{ slug: product.slug }} className="group flex flex-col gap-3">
                     <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-secondary">
                       <img 
                         src={product.images[0]} 

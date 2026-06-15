@@ -1,5 +1,6 @@
 import { HeadContent, Scripts, createRootRouteWithContext, useRouter } from '@tanstack/react-router'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { NotFound } from '../components/NotFound'
 
 import appCss from '../styles.css?url'
 
@@ -8,6 +9,7 @@ export interface MyRouterContext {
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
+  notFoundComponent: NotFound,
   head: () => ({
     meta: [
       {

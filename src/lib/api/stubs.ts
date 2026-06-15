@@ -14,11 +14,6 @@ export const customersApi = {
   getCustomer: async () => null
 }
 
-// Reviews API
-export const reviewsApi = {
-  listReviews: async () => [],
-  addReview: async () => ({})
-}
 
 // Promotions API
 export const promotionsApi = {

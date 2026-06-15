@@ -1,6 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Link } from '@tanstack/react-router'
 import { ArrowRight, Calendar } from 'lucide-react'
+import { useState } from 'react'
+import { subscribeNewsletter } from '../../server/functions/newsletter'
 
 export const Route = createFileRoute('/journal/')({
   component: JournalIndexPage,
@@ -42,6 +44,25 @@ const articles = [
 ]
 
 function JournalIndexPage() {
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState<{success: boolean, message: string} | null>(null)
+  const [loading, setLoading] = useState(false)
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+    setStatus(null)
+    try {
+      const res = await subscribeNewsletter({ data: { email } })
+      setStatus(res)
+      if (res.success) setEmail('')
+    } catch (err) {
+      setStatus({ success: false, message: 'Something went wrong' })
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <div className="container mx-auto px-4 py-16 max-w-7xl">
       <div className="text-center mb-16">
@@ -53,7 +74,7 @@ function JournalIndexPage() {
 
       {/* Featured Article */}
       <div className="mb-16">
-        <Link to={`/journal/${articles[0].slug}`} className="group flex flex-col md:flex-row gap-8 bg-secondary/20 border border-border rounded-3xl overflow-hidden transition-all hover:border-primary/50">
+        <Link to="/journal/$slug" params={{ slug: articles[0].slug }} className="group flex flex-col md:flex-row gap-8 bg-secondary/20 border border-border rounded-3xl overflow-hidden transition-all hover:border-primary/50">
           <div className="md:w-3/5 overflow-hidden">
             <img 
               src={articles[0].image} 
@@ -80,7 +101,7 @@ function JournalIndexPage() {
       {/* Article Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {articles.slice(1).map((article, index) => (
-          <Link key={index} to={`/journal/${article.slug}`} className="group flex flex-col bg-background border border-border rounded-2xl overflow-hidden hover:shadow-lg transition-all">
+          <Link key={index} to="/journal/$slug" params={{ slug: article.slug }} className="group flex flex-col bg-background border border-border rounded-2xl overflow-hidden hover:shadow-lg transition-all">
             <div className="overflow-hidden aspect-[4/3]">
               <img 
                 src={article.image} 
@@ -109,15 +130,24 @@ function JournalIndexPage() {
         <p className="text-primary-foreground/80 mb-8 max-w-xl mx-auto">
           Subscribe to our newsletter to get the latest articles, interviews, and collection drops delivered straight to your inbox.
         </p>
-        <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onSubmit={e => { e.preventDefault(); alert('Subscribed!') }}>
-          <input 
-            type="email" 
-            placeholder="Enter your email" 
-            required
-            className="flex-1 bg-primary-foreground/10 border border-primary-foreground/20 text-white placeholder:text-primary-foreground/50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-white"
-          />
-          <button type="submit" className="bg-white text-primary font-bold px-6 py-3 rounded-xl hover:bg-white/90 transition-colors">
-            Subscribe
+        <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onSubmit={handleSubscribe}>
+          <div className="flex-1 flex flex-col gap-2">
+            <input 
+              type="email" 
+              placeholder="Enter your email" 
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full bg-primary-foreground/10 border border-primary-foreground/20 text-white placeholder:text-primary-foreground/50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-white"
+            />
+            {status && (
+              <p className={`text-sm text-left ${status.success ? 'text-green-300' : 'text-red-300'}`}>
+                {status.message}
+              </p>
+            )}
+          </div>
+          <button type="submit" disabled={loading} className="bg-white text-primary font-bold px-6 py-3 rounded-xl hover:bg-white/90 transition-colors disabled:opacity-70 h-[50px] sm:self-start">
+            {loading ? '...' : 'Subscribe'}
           </button>
         </form>
       </div>

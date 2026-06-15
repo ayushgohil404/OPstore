@@ -21,7 +21,14 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as JournalIndexRouteImport } from './routes/journal/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AccountIndexRouteImport } from './routes/account/index'
+import { Route as PagesTermsRouteImport } from './routes/pages/terms'
+import { Route as PagesShippingRouteImport } from './routes/pages/shipping'
+import { Route as PagesRefundsRouteImport } from './routes/pages/refunds'
+import { Route as PagesPrivacyRouteImport } from './routes/pages/privacy'
+import { Route as PagesFaqRouteImport } from './routes/pages/faq'
 import { Route as PagesContactRouteImport } from './routes/pages/contact'
+import { Route as PagesCareersRouteImport } from './routes/pages/careers'
+import { Route as PagesAboutRouteImport } from './routes/pages/about'
 import { Route as PSlugRouteImport } from './routes/p.$slug'
 import { Route as JournalSlugRouteImport } from './routes/journal/$slug'
 import { Route as CCategoryRouteImport } from './routes/c.$category'
@@ -93,9 +100,44 @@ const AccountIndexRoute = AccountIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AccountRoute,
 } as any)
+const PagesTermsRoute = PagesTermsRouteImport.update({
+  id: '/pages/terms',
+  path: '/pages/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PagesShippingRoute = PagesShippingRouteImport.update({
+  id: '/pages/shipping',
+  path: '/pages/shipping',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PagesRefundsRoute = PagesRefundsRouteImport.update({
+  id: '/pages/refunds',
+  path: '/pages/refunds',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PagesPrivacyRoute = PagesPrivacyRouteImport.update({
+  id: '/pages/privacy',
+  path: '/pages/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PagesFaqRoute = PagesFaqRouteImport.update({
+  id: '/pages/faq',
+  path: '/pages/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PagesContactRoute = PagesContactRouteImport.update({
   id: '/pages/contact',
   path: '/pages/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PagesCareersRoute = PagesCareersRouteImport.update({
+  id: '/pages/careers',
+  path: '/pages/careers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PagesAboutRoute = PagesAboutRouteImport.update({
+  id: '/pages/about',
+  path: '/pages/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PSlugRoute = PSlugRouteImport.update({
@@ -165,7 +207,14 @@ export interface FileRoutesByFullPath {
   '/c/$category': typeof CCategoryRoute
   '/journal/$slug': typeof JournalSlugRoute
   '/p/$slug': typeof PSlugRoute
+  '/pages/about': typeof PagesAboutRoute
+  '/pages/careers': typeof PagesCareersRoute
   '/pages/contact': typeof PagesContactRoute
+  '/pages/faq': typeof PagesFaqRoute
+  '/pages/privacy': typeof PagesPrivacyRoute
+  '/pages/refunds': typeof PagesRefundsRoute
+  '/pages/shipping': typeof PagesShippingRoute
+  '/pages/terms': typeof PagesTermsRoute
   '/account/': typeof AccountIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/journal/': typeof JournalIndexRoute
@@ -188,7 +237,14 @@ export interface FileRoutesByTo {
   '/c/$category': typeof CCategoryRoute
   '/journal/$slug': typeof JournalSlugRoute
   '/p/$slug': typeof PSlugRoute
+  '/pages/about': typeof PagesAboutRoute
+  '/pages/careers': typeof PagesCareersRoute
   '/pages/contact': typeof PagesContactRoute
+  '/pages/faq': typeof PagesFaqRoute
+  '/pages/privacy': typeof PagesPrivacyRoute
+  '/pages/refunds': typeof PagesRefundsRoute
+  '/pages/shipping': typeof PagesShippingRoute
+  '/pages/terms': typeof PagesTermsRoute
   '/account': typeof AccountIndexRoute
   '/admin': typeof AdminIndexRoute
   '/journal': typeof JournalIndexRoute
@@ -214,7 +270,14 @@ export interface FileRoutesById {
   '/c/$category': typeof CCategoryRoute
   '/journal/$slug': typeof JournalSlugRoute
   '/p/$slug': typeof PSlugRoute
+  '/pages/about': typeof PagesAboutRoute
+  '/pages/careers': typeof PagesCareersRoute
   '/pages/contact': typeof PagesContactRoute
+  '/pages/faq': typeof PagesFaqRoute
+  '/pages/privacy': typeof PagesPrivacyRoute
+  '/pages/refunds': typeof PagesRefundsRoute
+  '/pages/shipping': typeof PagesShippingRoute
+  '/pages/terms': typeof PagesTermsRoute
   '/account/': typeof AccountIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/journal/': typeof JournalIndexRoute
@@ -241,7 +304,14 @@ export interface FileRouteTypes {
     | '/c/$category'
     | '/journal/$slug'
     | '/p/$slug'
+    | '/pages/about'
+    | '/pages/careers'
     | '/pages/contact'
+    | '/pages/faq'
+    | '/pages/privacy'
+    | '/pages/refunds'
+    | '/pages/shipping'
+    | '/pages/terms'
     | '/account/'
     | '/admin/'
     | '/journal/'
@@ -264,7 +334,14 @@ export interface FileRouteTypes {
     | '/c/$category'
     | '/journal/$slug'
     | '/p/$slug'
+    | '/pages/about'
+    | '/pages/careers'
     | '/pages/contact'
+    | '/pages/faq'
+    | '/pages/privacy'
+    | '/pages/refunds'
+    | '/pages/shipping'
+    | '/pages/terms'
     | '/account'
     | '/admin'
     | '/journal'
@@ -289,7 +366,14 @@ export interface FileRouteTypes {
     | '/c/$category'
     | '/journal/$slug'
     | '/p/$slug'
+    | '/pages/about'
+    | '/pages/careers'
     | '/pages/contact'
+    | '/pages/faq'
+    | '/pages/privacy'
+    | '/pages/refunds'
+    | '/pages/shipping'
+    | '/pages/terms'
     | '/account/'
     | '/admin/'
     | '/journal/'
@@ -312,7 +396,14 @@ export interface RootRouteChildren {
   CCategoryRoute: typeof CCategoryRoute
   JournalSlugRoute: typeof JournalSlugRoute
   PSlugRoute: typeof PSlugRoute
+  PagesAboutRoute: typeof PagesAboutRoute
+  PagesCareersRoute: typeof PagesCareersRoute
   PagesContactRoute: typeof PagesContactRoute
+  PagesFaqRoute: typeof PagesFaqRoute
+  PagesPrivacyRoute: typeof PagesPrivacyRoute
+  PagesRefundsRoute: typeof PagesRefundsRoute
+  PagesShippingRoute: typeof PagesShippingRoute
+  PagesTermsRoute: typeof PagesTermsRoute
   JournalIndexRoute: typeof JournalIndexRoute
   AuthGoogleCallbackRoute: typeof AuthGoogleCallbackRoute
 }
@@ -403,11 +494,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AccountIndexRouteImport
       parentRoute: typeof AccountRoute
     }
+    '/pages/terms': {
+      id: '/pages/terms'
+      path: '/pages/terms'
+      fullPath: '/pages/terms'
+      preLoaderRoute: typeof PagesTermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pages/shipping': {
+      id: '/pages/shipping'
+      path: '/pages/shipping'
+      fullPath: '/pages/shipping'
+      preLoaderRoute: typeof PagesShippingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pages/refunds': {
+      id: '/pages/refunds'
+      path: '/pages/refunds'
+      fullPath: '/pages/refunds'
+      preLoaderRoute: typeof PagesRefundsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pages/privacy': {
+      id: '/pages/privacy'
+      path: '/pages/privacy'
+      fullPath: '/pages/privacy'
+      preLoaderRoute: typeof PagesPrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pages/faq': {
+      id: '/pages/faq'
+      path: '/pages/faq'
+      fullPath: '/pages/faq'
+      preLoaderRoute: typeof PagesFaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pages/contact': {
       id: '/pages/contact'
       path: '/pages/contact'
       fullPath: '/pages/contact'
       preLoaderRoute: typeof PagesContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pages/careers': {
+      id: '/pages/careers'
+      path: '/pages/careers'
+      fullPath: '/pages/careers'
+      preLoaderRoute: typeof PagesCareersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pages/about': {
+      id: '/pages/about'
+      path: '/pages/about'
+      fullPath: '/pages/about'
+      preLoaderRoute: typeof PagesAboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/p/$slug': {
@@ -531,7 +671,14 @@ const rootRouteChildren: RootRouteChildren = {
   CCategoryRoute: CCategoryRoute,
   JournalSlugRoute: JournalSlugRoute,
   PSlugRoute: PSlugRoute,
+  PagesAboutRoute: PagesAboutRoute,
+  PagesCareersRoute: PagesCareersRoute,
   PagesContactRoute: PagesContactRoute,
+  PagesFaqRoute: PagesFaqRoute,
+  PagesPrivacyRoute: PagesPrivacyRoute,
+  PagesRefundsRoute: PagesRefundsRoute,
+  PagesShippingRoute: PagesShippingRoute,
+  PagesTermsRoute: PagesTermsRoute,
   JournalIndexRoute: JournalIndexRoute,
   AuthGoogleCallbackRoute: AuthGoogleCallbackRoute,
 }

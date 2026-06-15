@@ -1,20 +1,19 @@
 import { createServerFn } from '@tanstack/react-start'
 import { getCookie } from '@tanstack/react-start/server'
 import { prisma } from '../db'
+import { z } from 'zod'
+
+const ReviewSchema = z.object({
+  productId: z.number().int(),
+  rating: z.number().int().min(1).max(5),
+  comment: z.string().min(1).max(1000),
+})
 import jwt from 'jsonwebtoken'
 
-const JWT_SECRET = process.env.JWT_SECRET || 'secret'
+const JWT_SECRET = process.env.JWT_SECRET
+if (!JWT_SECRET) throw new Error('JWT_SECRET environment variable is not set')
 
-const getUserIdFromCookie = () => {
-  const token = getCookie('auth_token')
-  if (!token) return null
-  try {
-    const decoded: any = jwt.verify(token, JWT_SECRET)
-    return decoded.id
-  } catch (e) {
-    return null
-  }
-}
+import { getUserIdFromCookie } from '../../lib/auth'
 
 export const getReviews = createServerFn({ method: 'GET' })
   .validator((productId: number) => productId)
@@ -34,7 +33,13 @@ export const getReviews = createServerFn({ method: 'GET' })
   })
 
 export const createReview = createServerFn({ method: 'POST' })
-  .validator((data: { productId: number, rating: number, comment: string }) => data)
+  .validator((data: any) => {
+    try {
+      return ReviewSchema.parse(data)
+    } catch {
+      return { error: 'Invalid input' } as any
+    }
+  })
   .handler(async ({ data }) => {
     const userId = getUserIdFromCookie()
     if (!userId) throw new Error('Unauthorized: Must be logged in to review.')

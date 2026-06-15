@@ -14,10 +14,10 @@ export function StoreFooter() {
           <div>
             <h4 className="font-semibold mb-4">Shop</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link to="/c/men" className="hover:text-primary transition-colors">Men's Fashion</Link></li>
-              <li><Link to="/c/women" className="hover:text-primary transition-colors">Women's Fashion</Link></li>
-              <li><Link to="/c/kids" className="hover:text-primary transition-colors">Kids & Baby</Link></li>
-              <li><Link to="/c/accessories" className="hover:text-primary transition-colors">Accessories</Link></li>
+              <li><Link to="/c/$category" params={{ category: 'men' }} className="hover:text-primary transition-colors">Men's Fashion</Link></li>
+              <li><Link to="/c/$category" params={{ category: 'women' }} className="hover:text-primary transition-colors">Women's Fashion</Link></li>
+              <li><Link to="/c/$category" params={{ category: 'kids' }} className="hover:text-primary transition-colors">Kids & Baby</Link></li>
+              <li><Link to="/c/$category" params={{ category: 'accessories' }} className="hover:text-primary transition-colors">Accessories</Link></li>
             </ul>
           </div>
           <div>

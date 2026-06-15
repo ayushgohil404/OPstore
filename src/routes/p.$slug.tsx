@@ -9,7 +9,12 @@ import { useState } from 'react'
 import { Star, Minus, Plus, Heart, Truck, RefreshCw, ShieldCheck, ChevronDown, User } from 'lucide-react'
 import { toast } from 'sonner'
 
+import { RouteError } from '../components/RouteError'
+import { RouteLoading } from '../components/RouteLoading'
+
 export const Route = createFileRoute('/p/$slug')({
+  errorComponent: RouteError,
+  pendingComponent: RouteLoading,
   loader: async ({ context, params }) => {
     const product = await context.queryClient.ensureQueryData({
       queryKey: ['products', 'detail', params.slug],
@@ -147,7 +152,7 @@ function ProductPDP() {
       <nav className="text-sm text-muted-foreground mb-8">
         <Link to="/" className="hover:text-primary transition-colors">Home</Link>
         <span className="mx-2">/</span>
-        <Link to={`/c/${product.categoryId}`} className="hover:text-primary transition-colors capitalize">
+        <Link to="/c/$category" params={{ category: product.categoryId }} className="hover:text-primary transition-colors capitalize">
           {product.categoryId}
         </Link>
         <span className="mx-2">/</span>

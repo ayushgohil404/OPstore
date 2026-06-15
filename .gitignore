@@ -11,3 +11,9 @@ dist-ssr
 .vinxi
 __unconfig*
 todos.json
+
+# Cleanup scripts and temp files
+app.config.timestamp_*.js
+fix_*.cjs
+fix_*.js
+test_*.js

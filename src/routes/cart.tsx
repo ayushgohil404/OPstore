@@ -3,7 +3,10 @@ import { cartApi } from '../lib/api/inventory-cart'
 import { useSuspenseQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Trash2, ArrowRight, ShieldCheck, Loader2 } from 'lucide-react'
 
+import { RouteError } from '../components/RouteError'
+
 export const Route = createFileRoute('/cart')({
+  errorComponent: RouteError,
   loader: async ({ context }) => {
     await context.queryClient.ensureQueryData({
       queryKey: ['cart'],
@@ -73,14 +76,14 @@ function CartPage() {
                 
                 <div className="col-span-1 md:col-span-6 flex gap-4">
                   <div className="w-24 h-32 rounded-xl overflow-hidden bg-secondary flex-shrink-0">
-                    <img src={JSON.parse(item.product.images)[0] || ''} alt={item.product.title} className="w-full h-full object-cover" />
+                    <img src={item.product.images[0] || ''} alt={item.product.name} className="w-full h-full object-cover" />
                   </div>
                   <div className="flex flex-col justify-center gap-1">
-                    <Link to={`/p/${item.product.id}`} className="font-semibold hover:text-primary transition-colors">
-                      {item.product.title}
+                    <Link to="/p/$slug" params={{ slug: item.product.slug || item.product.id.toString() }} className="font-semibold hover:text-primary transition-colors">
+                      {item.product.name}
                     </Link>
                     <div className="text-sm text-muted-foreground">
-                      Category: {item.product.category}
+                      Category: {item.product.categoryId}
                     </div>
                     <div className="text-primary font-medium mt-1">${item.product.price.toFixed(2)}</div>
                   </div>

@@ -1,11 +1,32 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { CheckCircle2, ShieldCheck } from 'lucide-react'
+import { useQuery } from '@tanstack/react-query'
+import { authApi } from '../../lib/api'
+import { settingsApi } from '../../lib/api/settings'
+
+import { RouteError } from '../../components/RouteError'
 
 export const Route = createFileRoute('/account/')({
+  errorComponent: RouteError,
   component: AccountProfile,
 })
 
 function AccountProfile() {
+  const { data: user } = useQuery({
+    queryKey: ['auth-user'],
+    queryFn: () => authApi.getCurrentUser()
+  })
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    const firstName = formData.get('firstName') as string
+    const email = formData.get('email') as string
+    
+    if (firstName && email) {
+      await settingsApi.updateProfile({ name: firstName, email })
+    }
+  }
   return (
     <div className="p-8 md:p-10">
       <div className="flex items-center gap-3 mb-8 pb-6 border-b border-border">
@@ -15,22 +36,22 @@ function AccountProfile() {
         </div>
       </div>
 
-      <form className="space-y-8 max-w-2xl" onSubmit={(e) => e.preventDefault()}>
+      <form className="space-y-8 max-w-2xl" onSubmit={handleSubmit}>
         {/* Personal Details */}
         <div>
           <h2 className="text-lg font-semibold mb-4">Personal Details</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="space-y-2">
               <label className="text-sm font-medium text-foreground">First Name</label>
-              <input type="text" defaultValue="John" className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:outline-none transition-all" />
+              <input name="firstName" type="text" defaultValue={user?.firstName || ''} className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:outline-none transition-all" />
             </div>
             <div className="space-y-2">
               <label className="text-sm font-medium text-foreground">Last Name</label>
-              <input type="text" defaultValue="Doe" className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:outline-none transition-all" />
+              <input name="lastName" type="text" defaultValue={user?.lastName || ''} className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:outline-none transition-all" />
             </div>
             <div className="space-y-2 sm:col-span-2">
               <label className="text-sm font-medium text-foreground">Email Address</label>
-              <input type="email" defaultValue="john@example.com" className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:outline-none transition-all" />
+              <input name="email" type="email" defaultValue={user?.email || ''} className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:outline-none transition-all" />
             </div>
             <div className="space-y-2 sm:col-span-2">
               <label className="text-sm font-medium text-foreground">Phone Number</label>

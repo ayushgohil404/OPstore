@@ -4,14 +4,34 @@ import { prisma } from '../db'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import { sendWelcomeEmail, sendOtpEmail } from '../../lib/email'
+import { z } from 'zod'
 
-const JWT_SECRET = process.env.JWT_SECRET || 'secret'
+const RegisterSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6, 'Password must be at least 6 characters'),
+  firstName: z.string().min(1),
+  lastName: z.string().min(1),
+})
+
+const LoginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(1),
+})
+
+const JWT_SECRET = process.env.JWT_SECRET
+if (!JWT_SECRET) throw new Error('JWT_SECRET environment variable is not set')
 
 const generateOtp = () => Math.floor(100000 + Math.random() * 900000).toString()
 const getOtpExpiry = () => new Date(Date.now() + 15 * 60 * 1000) // 15 mins
 
 export const login = createServerFn({ method: 'POST' })
-  .validator((data: any) => data)
+  .validator((data: any) => {
+    try {
+      return LoginSchema.parse(data)
+    } catch {
+      return { error: 'Invalid input' } as any
+    }
+  })
   .handler(async ({ data }) => {
     const { email, password } = data
     const user = await prisma.user.findUnique({ where: { email } })
@@ -35,7 +55,13 @@ export const login = createServerFn({ method: 'POST' })
   })
 
 export const register = createServerFn({ method: 'POST' })
-  .validator((data: any) => data)
+  .validator((data: any) => {
+    try {
+      return RegisterSchema.parse(data)
+    } catch {
+      return { error: 'Invalid input' } as any
+    }
+  })
   .handler(async ({ data }) => {
     const { email, password, firstName, lastName } = data
     
@@ -156,9 +182,7 @@ export const getGoogleAuthUrl = createServerFn({ method: 'GET' })
     
     // We are mocking the redirect URL formation, actual implementation requires full OAuth 2 flow or react-oauth/google.
     // Given TanStack start, we can redirect to standard Google auth URL.
-    const redirectUri = process.env.NODE_ENV === 'production' 
-      ? 'https://opstore.vercel.app/auth/google/callback' 
-      : 'http://localhost:3000/auth/google/callback'
+    const redirectUri = process.env.GOOGLE_REDIRECT_URI || 'http://localhost:3000/auth/google/callback'
       
     const scope = 'email profile'
     const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}`
@@ -168,9 +192,9 @@ export const getGoogleAuthUrl = createServerFn({ method: 'GET' })
 // Usually you'd exchange code for token here, but we will simplify by expecting the client to pass the decoded Google info or we fetch it if code is provided.
 // Since the user is testing locally, we'll expose a server function that registers the user via Google.
 export const loginWithGoogle = createServerFn({ method: 'POST' })
-  .validator((data: { email: string, name: string, sub: string }) => data)
+  .validator((data: { email: string, name: string }) => data)
   .handler(async ({ data }) => {
-    const { email, name, sub } = data
+    const { email, name } = data
     
     let user = await prisma.user.findUnique({ where: { email } })
     

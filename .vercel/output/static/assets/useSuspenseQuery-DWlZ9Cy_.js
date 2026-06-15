@@ -1,0 +1,1 @@
+import{b as e,w as t,x as n}from"./index-CFn3lbWH.js";function r(r,i){return e({...r,enabled:!0,suspense:!0,throwOnError:n,placeholderData:void 0},t,i)}export{r as t};

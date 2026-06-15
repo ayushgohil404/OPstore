@@ -1,9 +1,15 @@
-import { createFileRoute, Link, useParams } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
+import { useState } from 'react'
 import { productsApi } from '../lib/api'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { Filter, ChevronDown } from 'lucide-react'
 
+import { RouteError } from '../components/RouteError'
+import { RouteLoading } from '../components/RouteLoading'
+
 export const Route = createFileRoute('/c/$category')({
+  errorComponent: RouteError,
+  pendingComponent: RouteLoading,
   head: ({ params }) => {
     const title = params.category.charAt(0).toUpperCase() + params.category.slice(1)
     return {
@@ -29,6 +35,17 @@ function CategoryPLP() {
     queryFn: () => productsApi.listProducts({ categoryId: category }),
   })
 
+  const [selectedSize, setSelectedSize] = useState<string|null>(null)
+  const [selectedColor, setSelectedColor] = useState<string|null>(null)
+  const [maxPrice, setMaxPrice] = useState<number>(9999)
+
+  const filtered = products.filter((p: any) => {
+    const sizeOk = !selectedSize || p.variants?.some((v: any) => v.size === selectedSize)
+    const colorOk = !selectedColor || p.variants?.some((v: any) => v.color === selectedColor)
+    const priceOk = p.price <= maxPrice
+    return sizeOk && colorOk && priceOk
+  })
+
   // Format category name
   const title = category.charAt(0).toUpperCase() + category.slice(1)
 
@@ -46,9 +63,17 @@ function CategoryPLP() {
         {/* Filters Rail (Mock) */}
         <aside className="w-full md:w-64 flex-shrink-0">
           <div className="sticky top-24 space-y-8">
-            <div className="flex items-center gap-2 font-semibold text-lg pb-4 border-b border-border">
-              <Filter className="w-5 h-5" />
-              Filters
+            <div className="flex items-center justify-between pb-4 border-b border-border">
+              <div className="flex items-center gap-2 font-semibold text-lg">
+                <Filter className="w-5 h-5" />
+                Filters
+              </div>
+              <button 
+                onClick={() => { setSelectedSize(null); setSelectedColor(null); setMaxPrice(9999) }}
+                className="text-xs text-primary hover:underline font-medium"
+              >
+                Clear filters
+              </button>
             </div>
             
             {/* Size Filter */}
@@ -58,7 +83,11 @@ function CategoryPLP() {
               </h3>
               <div className="grid grid-cols-4 gap-2">
                 {['XS', 'S', 'M', 'L', 'XL'].map(size => (
-                  <button key={size} className="border border-border hover:border-primary rounded-md py-2 text-sm text-center transition-colors">
+                  <button 
+                    key={size} 
+                    onClick={() => setSelectedSize(selectedSize === size ? null : size)}
+                    className={`border rounded-md py-2 text-sm text-center transition-colors ${selectedSize === size ? 'border-primary bg-primary/10' : 'border-border hover:border-primary'}`}
+                  >
                     {size}
                   </button>
                 ))}
@@ -80,7 +109,8 @@ function CategoryPLP() {
                 ].map(color => (
                   <button 
                     key={color.name}
-                    className="w-8 h-8 rounded-full border border-border ring-offset-background hover:ring-2 hover:ring-ring hover:ring-offset-2 transition-all"
+                    onClick={() => setSelectedColor(selectedColor === color.name ? null : color.name)}
+                    className={`w-8 h-8 rounded-full border ring-offset-background hover:ring-2 hover:ring-ring hover:ring-offset-2 transition-all ${selectedColor === color.name ? 'ring-2 ring-primary ring-offset-2' : 'border-border'}`}
                     style={{ backgroundColor: color.hex }}
                     title={color.name}
                   />
@@ -96,7 +126,13 @@ function CategoryPLP() {
               <div className="flex items-center gap-2">
                 <input type="text" placeholder="Min" className="w-full bg-secondary rounded-md px-3 py-2 text-sm" />
                 <span>-</span>
-                <input type="text" placeholder="Max" className="w-full bg-secondary rounded-md px-3 py-2 text-sm" />
+                <input 
+                  type="number" 
+                  placeholder="Max" 
+                  value={maxPrice === 9999 ? '' : maxPrice}
+                  onChange={(e) => setMaxPrice(e.target.value ? Number(e.target.value) : 9999)}
+                  className="w-full bg-secondary rounded-md px-3 py-2 text-sm" 
+                />
               </div>
             </div>
           </div>
@@ -105,7 +141,7 @@ function CategoryPLP() {
         {/* Product Grid */}
         <div className="flex-1">
           <div className="flex justify-between items-center mb-6">
-            <span className="text-sm text-muted-foreground">{products.length} Products</span>
+            <span className="text-sm text-muted-foreground">{filtered.length} Products</span>
             <select className="bg-transparent border border-border rounded-md px-3 py-1.5 text-sm">
               <option>Recommended</option>
               <option>Newest</option>
@@ -114,15 +150,15 @@ function CategoryPLP() {
             </select>
           </div>
 
-          {products.length === 0 ? (
+          {filtered.length === 0 ? (
             <div className="py-20 text-center">
               <h3 className="text-xl font-medium mb-2">No products found</h3>
               <p className="text-muted-foreground">Try adjusting your filters or search.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
-              {products.map(product => (
-                <Link key={product.id} to={`/p/${product.slug}`} className="group flex flex-col gap-3">
+              {filtered.map(product => (
+                <Link key={product.id} to="/p/$slug" params={{ slug: product.slug }} className="group flex flex-col gap-3">
                   <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-secondary">
                     <img 
                       src={product.images[0]} 

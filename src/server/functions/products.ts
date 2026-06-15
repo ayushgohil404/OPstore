@@ -1,5 +1,6 @@
 import { createServerFn } from '@tanstack/react-start'
 import { prisma } from '../db'
+import { requireAdmin } from './orders'
 
 // Helper to map Prisma Product to Frontend Product
 export const mapProduct = (p: any) => {
@@ -23,7 +24,21 @@ export const mapProduct = (p: any) => {
     images: parsedImages,
     categoryId: p.category,
     materials: ['Cotton'], // Placeholder as DB doesn't have it
-    variants: parsedSizes.map((size: string) => ({ name: size, inStock: p.stock > 0 }))
+    variants: parsedSizes.length > 0
+      ? parsedSizes.map((size: string, i: number) => ({
+          id: `${p.id}-v${i}`,
+          size,
+          color: 'Black',
+          sku: `SKU-${p.id}-${size}`,
+          stock: p.stock
+        }))
+      : [{
+          id: `${p.id}-v0`,
+          size: 'OS',
+          color: 'Black',
+          sku: `SKU-${p.id}-OS`,
+          stock: p.stock
+        }]
   }
 }
 
@@ -100,6 +115,7 @@ export const createProduct = createServerFn({ method: 'POST' })
 
 export const getLowStockProducts = createServerFn({ method: 'GET' })
   .handler(async () => {
+    await requireAdmin()
     const products = await prisma.product.findMany({
       where: { stock: { lte: 5 } },
       orderBy: { stock: 'asc' },

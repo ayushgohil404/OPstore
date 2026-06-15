@@ -22,7 +22,7 @@ function AccountSettings() {
   
   useEffect(() => {
     if (user) {
-      setProfileData({ name: user.name || '', email: user.email || '' })
+      setProfileData({ name: user.firstName || '', email: user.email || '' })
     }
   }, [user])
 
