@@ -1,0 +1,1 @@
+import{t as e}from"./RouteError-BYAVRG1V.js";var t=e;export{t as errorComponent};

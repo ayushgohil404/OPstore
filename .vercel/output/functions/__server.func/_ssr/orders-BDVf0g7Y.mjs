@@ -1,7 +1,7 @@
 import { o as __toESM } from "../_runtime.mjs";
 import { a as require_react } from "../_libs/@stripe/react-stripe-js+[...].mjs";
 import { a as useQueryClient, o as require_jsx_runtime, r as useQuery, t as useMutation } from "../_libs/react+tanstack__react-query.mjs";
-import { M as Ellipsis, _ as Search, x as Package } from "../_libs/lucide-react.mjs";
+import { C as Package, P as Ellipsis, v as Search } from "../_libs/lucide-react.mjs";
 import { t as ordersApi } from "./orders-Dvl6-FEu.mjs";
 import { n as toast } from "../_libs/sonner.mjs";
 //#region node_modules/.nitro/vite/services/ssr/assets/orders-BDVf0g7Y.js

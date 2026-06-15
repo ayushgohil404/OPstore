@@ -1,6 +1,6 @@
 import { f as Outlet, g as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { o as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
-import { D as LogOut, _ as Search, f as ShoppingCart, h as Settings, k as LayoutDashboard, r as Users, x as Package, z as Bell } from "../_libs/lucide-react.mjs";
+import { C as Package, V as Bell, g as Settings, j as LayoutDashboard, k as LogOut, p as ShoppingCart, r as Users, v as Search } from "../_libs/lucide-react.mjs";
 //#region node_modules/.nitro/vite/services/ssr/assets/route-5YDr_iY-.js
 var import_jsx_runtime = require_jsx_runtime();
 function AdminLayout() {

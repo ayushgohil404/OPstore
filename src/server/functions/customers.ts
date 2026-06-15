@@ -1,6 +1,6 @@
 import { createServerFn } from '@tanstack/react-start'
 import { prisma } from '../db'
-import { requireAdmin } from './orders'
+import { requireAdmin } from './auth-utils'
 
 export const listAllCustomers = createServerFn({ method: 'GET' })
   .handler(async () => {

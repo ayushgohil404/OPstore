@@ -1,25 +1,6 @@
 import { createServerFn } from '@tanstack/react-start'
-import { getCookie } from '@tanstack/react-start/server'
 import { prisma } from '../db'
-import jwt from 'jsonwebtoken'
-
-const JWT_SECRET = process.env.JWT_SECRET
-if (!JWT_SECRET) throw new Error('JWT_SECRET environment variable is not set')
-
-import { getUserIdFromCookie } from '../../lib/auth'
-
-export const requireAdmin = async () => {
-  const token = getCookie('auth_token')
-  if (!token) throw new Error('Unauthorized')
-  try {
-    const decoded: any = jwt.verify(token, JWT_SECRET)
-    const user = await prisma.user.findUnique({ where: { id: decoded.id } })
-    if (!user || user.role !== 'ADMIN') throw new Error('Forbidden: Admin access required')
-    return user
-  } catch (e: any) {
-    throw new Error(e.message || 'Unauthorized')
-  }
-}
+import { getUserIdFromCookie, requireAdmin } from './auth-utils'
 
 export const listUserOrders = createServerFn({ method: 'GET' })
   .handler(async () => {

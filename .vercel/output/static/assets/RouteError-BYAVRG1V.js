@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-DGeXAQPT.js";var t=e();function n({error:e}){return(0,t.jsxs)(`div`,{style:{padding:`2rem`,textAlign:`center`},children:[(0,t.jsx)(`p`,{children:`Something went wrong.`}),(0,t.jsx)(`p`,{style:{opacity:.6,fontSize:`0.875rem`},children:e?.message})]})}export{n as t};

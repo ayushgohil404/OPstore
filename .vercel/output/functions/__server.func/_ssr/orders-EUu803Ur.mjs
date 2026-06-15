@@ -1,5 +1,5 @@
 import { o as require_jsx_runtime, r as useQuery } from "../_libs/react+tanstack__react-query.mjs";
-import { F as Clock, I as CircleCheck, a as Truck, x as Package } from "../_libs/lucide-react.mjs";
+import { C as Package, L as Clock, R as CircleCheck, a as Truck } from "../_libs/lucide-react.mjs";
 import { t as ordersApi } from "./orders-Dvl6-FEu.mjs";
 //#region node_modules/.nitro/vite/services/ssr/assets/orders-EUu803Ur.js
 var import_jsx_runtime = require_jsx_runtime();

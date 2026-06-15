@@ -32,6 +32,8 @@ import { Route as PagesAboutRouteImport } from './routes/pages/about'
 import { Route as PSlugRouteImport } from './routes/p.$slug'
 import { Route as JournalSlugRouteImport } from './routes/journal/$slug'
 import { Route as CCategoryRouteImport } from './routes/c.$category'
+import { Route as AdminSettingsRouteImport } from './routes/admin/settings'
+import { Route as AdminCustomersRouteImport } from './routes/admin/customers'
 import { Route as AccountWishlistRouteImport } from './routes/account/wishlist'
 import { Route as AccountSettingsRouteImport } from './routes/account/settings'
 import { Route as AccountOrdersRouteImport } from './routes/account/orders'
@@ -155,6 +157,16 @@ const CCategoryRoute = CCategoryRouteImport.update({
   path: '/c/$category',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminCustomersRoute = AdminCustomersRouteImport.update({
+  id: '/customers',
+  path: '/customers',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
 const AccountWishlistRoute = AccountWishlistRouteImport.update({
   id: '/wishlist',
   path: '/wishlist',
@@ -204,6 +216,8 @@ export interface FileRoutesByFullPath {
   '/account/orders': typeof AccountOrdersRoute
   '/account/settings': typeof AccountSettingsRoute
   '/account/wishlist': typeof AccountWishlistRoute
+  '/admin/customers': typeof AdminCustomersRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/c/$category': typeof CCategoryRoute
   '/journal/$slug': typeof JournalSlugRoute
   '/p/$slug': typeof PSlugRoute
@@ -234,6 +248,8 @@ export interface FileRoutesByTo {
   '/account/orders': typeof AccountOrdersRoute
   '/account/settings': typeof AccountSettingsRoute
   '/account/wishlist': typeof AccountWishlistRoute
+  '/admin/customers': typeof AdminCustomersRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/c/$category': typeof CCategoryRoute
   '/journal/$slug': typeof JournalSlugRoute
   '/p/$slug': typeof PSlugRoute
@@ -267,6 +283,8 @@ export interface FileRoutesById {
   '/account/orders': typeof AccountOrdersRoute
   '/account/settings': typeof AccountSettingsRoute
   '/account/wishlist': typeof AccountWishlistRoute
+  '/admin/customers': typeof AdminCustomersRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/c/$category': typeof CCategoryRoute
   '/journal/$slug': typeof JournalSlugRoute
   '/p/$slug': typeof PSlugRoute
@@ -301,6 +319,8 @@ export interface FileRouteTypes {
     | '/account/orders'
     | '/account/settings'
     | '/account/wishlist'
+    | '/admin/customers'
+    | '/admin/settings'
     | '/c/$category'
     | '/journal/$slug'
     | '/p/$slug'
@@ -331,6 +351,8 @@ export interface FileRouteTypes {
     | '/account/orders'
     | '/account/settings'
     | '/account/wishlist'
+    | '/admin/customers'
+    | '/admin/settings'
     | '/c/$category'
     | '/journal/$slug'
     | '/p/$slug'
@@ -363,6 +385,8 @@ export interface FileRouteTypes {
     | '/account/orders'
     | '/account/settings'
     | '/account/wishlist'
+    | '/admin/customers'
+    | '/admin/settings'
     | '/c/$category'
     | '/journal/$slug'
     | '/p/$slug'
@@ -571,6 +595,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CCategoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/customers': {
+      id: '/admin/customers'
+      path: '/customers'
+      fullPath: '/admin/customers'
+      preLoaderRoute: typeof AdminCustomersRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
     '/account/wishlist': {
       id: '/account/wishlist'
       path: '/wishlist'
@@ -624,6 +662,8 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminRouteRouteChildren {
+  AdminCustomersRoute: typeof AdminCustomersRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AdminProductsNewRoute: typeof AdminProductsNewRoute
   AdminOrdersIndexRoute: typeof AdminOrdersIndexRoute
@@ -631,6 +671,8 @@ interface AdminRouteRouteChildren {
 }
 
 const AdminRouteRouteChildren: AdminRouteRouteChildren = {
+  AdminCustomersRoute: AdminCustomersRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
   AdminIndexRoute: AdminIndexRoute,
   AdminProductsNewRoute: AdminProductsNewRoute,
   AdminOrdersIndexRoute: AdminOrdersIndexRoute,

@@ -1,6 +1,6 @@
 import { g as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { o as require_jsx_runtime, r as useQuery } from "../_libs/react+tanstack__react-query.mjs";
-import { N as DollarSign, S as PackageOpen, o as TrendingUp, p as ShoppingBag, r as Users, s as TrendingDown } from "../_libs/lucide-react.mjs";
+import { F as DollarSign, c as TrendingDown, m as ShoppingBag, r as Users, s as TrendingUp, w as PackageOpen } from "../_libs/lucide-react.mjs";
 import { r as getLowStockProducts } from "./products-BtALL_Ne.mjs";
 import { t as ordersApi } from "./orders-Dvl6-FEu.mjs";
 //#region node_modules/.nitro/vite/services/ssr/assets/admin-B7JHjhGi.js

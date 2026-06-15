@@ -1,5 +1,4 @@
 import { createServerFn } from '@tanstack/react-start'
-import { getCookie } from '@tanstack/react-start/server'
 import { prisma } from '../db'
 import jwt from 'jsonwebtoken'
 import { mapProduct } from './products'
@@ -7,7 +6,7 @@ import { mapProduct } from './products'
 const JWT_SECRET = process.env.JWT_SECRET
 if (!JWT_SECRET) throw new Error('JWT_SECRET environment variable is not set')
 
-import { getUserIdFromCookie } from '../../lib/auth'
+import { getUserIdFromCookie } from './auth-utils'
 
 export const getWishlist = createServerFn({ method: 'GET' })
   .handler(async () => {

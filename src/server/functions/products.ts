@@ -1,6 +1,6 @@
 import { createServerFn } from '@tanstack/react-start'
 import { prisma } from '../db'
-import { requireAdmin } from './orders'
+import { requireAdmin } from './auth-utils'
 
 // Helper to map Prisma Product to Frontend Product
 export const mapProduct = (p: any) => {

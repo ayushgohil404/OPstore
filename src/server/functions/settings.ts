@@ -1,5 +1,4 @@
 import { createServerFn } from '@tanstack/react-start'
-import { getCookie } from '@tanstack/react-start/server'
 import { prisma } from '../db'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
@@ -13,7 +12,7 @@ const PasswordSchema = z.object({
 const JWT_SECRET = process.env.JWT_SECRET
 if (!JWT_SECRET) throw new Error('JWT_SECRET environment variable is not set')
 
-import { getUserIdFromCookie } from '../../lib/auth'
+import { getUserIdFromCookie } from './auth-utils'
 
 export const updateProfile = createServerFn({ method: 'POST' })
   .validator((data: { name: string; email: string }) => data)
